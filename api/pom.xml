@@ -3,7 +3,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 2012 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012-2013 Oracle and/or its affiliates. All rights reserved.
 
     The contents of this file are subject to the terms of either the GNU
     General Public License Version 2 only ("GPL") or the Common Development
@@ -72,8 +72,8 @@
     </licenses>
 
     <scm>
-        <url>http://java.net/projects/concurrency-ee-spec/sources/git/show/api</url>
-        <connection>scm:git://java.net/concurrency-ee-spec~git</connection>
+        <url>http://java.net/projects/concurrency-ee-spec/sources/source-code-repository/show/trunk/api</url>
+        <connection>scm:svn:https://svn.java.net/svn/concurrency-ee-spec~source-code-repository/trunk/api</connection>
     </scm>
 
     <developers>
@@ -156,6 +156,11 @@
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>2.6</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>2.3.4</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -171,15 +176,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Specification-Title>Concurrency Utilities for Java EE</Specification-Title>
-                            <Specification-Version>${project.version}</Specification-Version>
-                            <Specification-Vendor>Oracle Corporation</Specification-Vendor>
-                            <Extension-Name>javax.enterprise.concurrent</Extension-Name>
-                            <Build-Id>${buildNumber}</Build-Id>
-                        </manifestEntries>
-                    </archive>
+                    <useDefaultManifestFile>true</useDefaultManifestFile>
                 </configuration>
             </plugin>
             <plugin>
@@ -274,6 +271,27 @@
                             <goal>checkstyle</goal>
                         </goals>
                         <phase>validate</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <!-- By default, we don't export anything.
+                    -->
+                    <Export-Package></Export-Package>
+                    <instructions>
+                        <_include>-${basedir}/osgi.bundle</_include>
+                    </instructions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
