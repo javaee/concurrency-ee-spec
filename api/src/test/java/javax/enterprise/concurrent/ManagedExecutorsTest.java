@@ -82,7 +82,6 @@ public class ManagedExecutorsTest {
         assertTrue(taskListener == managedTask.getManagedTaskListener());
         assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.LONGRUNNING_HINT));
         assertEquals(TASK_NAME, managedTask.getExecutionProperties().get(ManagedTask.IDENTITY_NAME));
-        assertEquals(TASK_NAME, managedTask.getIdentityDescription(Locale.getDefault()));
         
         wrapped.run();
         assertTrue(task.ran);
@@ -97,7 +96,7 @@ public class ManagedExecutorsTest {
     public void testManagedTask_Runnable_ManagedTask() {
         ManagedTaskListenerImpl TASK_LISTENER = new ManagedTaskListenerImpl();
         Map<String, String> EXEC_PROPERTIES = new HashMap<>();
-        EXEC_PROPERTIES.put(ManagedTask.DISTRIBUTABLE_HINT, "true");
+        EXEC_PROPERTIES.put(ManagedTask.CONTEXTUAL_CALLBACK_HINT, "true");
         EXEC_PROPERTIES.put(ManagedTask.LONGRUNNING_HINT, "false");
         final String TASK_DESCRIPTION = "task1 description";
         ManagedTaskRunnableImpl task = new ManagedTaskRunnableImpl(TASK_DESCRIPTION, EXEC_PROPERTIES, TASK_LISTENER);
@@ -113,8 +112,7 @@ public class ManagedExecutorsTest {
         assertTrue(taskListener == managedTask.getManagedTaskListener());
         assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.LONGRUNNING_HINT));
         assertEquals(TASK_NAME, managedTask.getExecutionProperties().get(ManagedTask.IDENTITY_NAME));
-        assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.DISTRIBUTABLE_HINT));
-        assertEquals(TASK_DESCRIPTION, managedTask.getIdentityDescription(Locale.getDefault()));
+        assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.CONTEXTUAL_CALLBACK_HINT));
     }
 
     /**
@@ -126,15 +124,14 @@ public class ManagedExecutorsTest {
     public void testManagedTask_Runnable_ManagedTask_null_args() {
         ManagedTaskListenerImpl TASK_LISTENER = new ManagedTaskListenerImpl();
         Map<String, String> EXEC_PROPERTIES = new HashMap<>();
-        EXEC_PROPERTIES.put(ManagedTask.DISTRIBUTABLE_HINT, "true");
+        EXEC_PROPERTIES.put(ManagedTask.CONTEXTUAL_CALLBACK_HINT, "true");
         final String TASK_DESCRIPTION = "task1 description";
         ManagedTaskRunnableImpl task = new ManagedTaskRunnableImpl(TASK_DESCRIPTION, EXEC_PROPERTIES, TASK_LISTENER);
         
         Runnable wrapped = ManagedExecutors.managedTask(task, null, null);
         ManagedTask managedTask = (ManagedTask) wrapped;
         assertTrue(TASK_LISTENER == managedTask.getManagedTaskListener());
-        assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.DISTRIBUTABLE_HINT));
-        assertEquals(TASK_DESCRIPTION, managedTask.getIdentityDescription(Locale.getDefault()));
+        assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.CONTEXTUAL_CALLBACK_HINT));
     }
 
     /**
@@ -171,7 +168,6 @@ public class ManagedExecutorsTest {
         assertTrue(taskListener == managedTask.getManagedTaskListener());
         assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.LONGRUNNING_HINT));
         assertEquals(TASK_NAME, managedTask.getExecutionProperties().get(ManagedTask.IDENTITY_NAME));
-        assertEquals(TASK_NAME, managedTask.getIdentityDescription(Locale.getDefault()));
         
         assertEquals(RESULT, wrapped.call());
     }
@@ -186,7 +182,7 @@ public class ManagedExecutorsTest {
         final String RESULT = "result";
         ManagedTaskListenerImpl TASK_LISTENER = new ManagedTaskListenerImpl();
         Map EXEC_PROPERTIES = new HashMap<>();
-        EXEC_PROPERTIES.put(ManagedTask.DISTRIBUTABLE_HINT, "true");
+        EXEC_PROPERTIES.put(ManagedTask.CONTEXTUAL_CALLBACK_HINT, "true");
         EXEC_PROPERTIES.put(ManagedTask.LONGRUNNING_HINT, "false");
         final String TASK_DESCRIPTION = "task1 description";
         ManagedTaskCallableImpl<String> task = new ManagedTaskCallableImpl(RESULT, TASK_DESCRIPTION, EXEC_PROPERTIES, TASK_LISTENER);
@@ -202,8 +198,7 @@ public class ManagedExecutorsTest {
         assertTrue(taskListener == managedTask.getManagedTaskListener());
         assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.LONGRUNNING_HINT));
         assertEquals(TASK_NAME, managedTask.getExecutionProperties().get(ManagedTask.IDENTITY_NAME));
-        assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.DISTRIBUTABLE_HINT));
-        assertEquals(TASK_DESCRIPTION, managedTask.getIdentityDescription(Locale.getDefault()));
+        assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.CONTEXTUAL_CALLBACK_HINT));
     }
 
     /**
@@ -216,15 +211,14 @@ public class ManagedExecutorsTest {
         final String RESULT = "result";
         ManagedTaskListenerImpl TASK_LISTENER = new ManagedTaskListenerImpl();
         Map EXEC_PROPERTIES = new HashMap<>();
-        EXEC_PROPERTIES.put(ManagedTask.DISTRIBUTABLE_HINT, "true");
+        EXEC_PROPERTIES.put(ManagedTask.CONTEXTUAL_CALLBACK_HINT, "true");
         final String TASK_DESCRIPTION = "task1 description";
         ManagedTaskCallableImpl<String> task = new ManagedTaskCallableImpl(RESULT, TASK_DESCRIPTION, EXEC_PROPERTIES, TASK_LISTENER);
         
         Callable wrapped = ManagedExecutors.managedTask(task, null, null);
         ManagedTask managedTask = (ManagedTask) wrapped;
         assertTrue(TASK_LISTENER == managedTask.getManagedTaskListener());
-        assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.DISTRIBUTABLE_HINT));
-        assertEquals(TASK_DESCRIPTION, managedTask.getIdentityDescription(Locale.getDefault()));
+        assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.CONTEXTUAL_CALLBACK_HINT));
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -274,7 +268,6 @@ public class ManagedExecutorsTest {
             this.executionProperties = executionProperties;
         }
         
-        @Override
         public String getIdentityDescription(Locale locale) {
             return description;
         }
@@ -319,7 +312,6 @@ public class ManagedExecutorsTest {
             this.executionProperties = executionProperties;
         }
         
-        @Override
         public String getIdentityDescription(Locale locale) {
             return description;
         }

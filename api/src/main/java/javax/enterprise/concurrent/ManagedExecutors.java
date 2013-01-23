@@ -252,18 +252,6 @@ public class ManagedExecutors {
         }
         
         @Override
-        public String getIdentityDescription(Locale locale) {
-            if (managedTask != null) {
-                return managedTask.getIdentityDescription(locale);
-            }
-            if (executionProperties != null) {
-                // if identity name is provided, return it as the description
-                return executionProperties.get(IDENTITY_NAME);
-            }
-            return null;
-        }
-
-        @Override
         public ManagedTaskListener getManagedTaskListener() {
             if (taskListener != null) {
                 return taskListener;

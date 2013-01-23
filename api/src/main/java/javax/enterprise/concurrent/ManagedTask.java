@@ -56,19 +56,6 @@ import java.util.Map;
 public interface ManagedTask {
 
   /**
-   * Execution property to be returned in {@link #getExecutionProperties() } or
-   * {@link ContextService#createContextualProxy(java.lang.Object, java.util.Map, java.lang.Class) ContextService.createContextualProxy()}
-   * to provide a hint as to whether the task can be run in a different process
-   * than the one where the task is submitted. Valid values are "true" or
-   * "false". <p>
-   * Java&trade; EE Product Providers are not required to support
-   * distributable {@code ManagedExecutorService}. Tasks with a 
-   * {@code DISTRIBUTABLE_HINT} property value of "true" could still be run within
-   * the same process where the task is submitted.
-   */  
-  public static final String DISTRIBUTABLE_HINT = "javax.enterprise.concurrent.DISTRIBUTABLE_HINT";  
-
-  /**
    * Execution property to be returned in {@link #getExecutionProperties()} or
    * {@link ContextService#createContextualProxy(java.lang.Object, java.util.Map, java.lang.Class) ContextService.createContextualProxy()}
    * to provide hint about whether the task could take a long time to complete.
@@ -98,14 +85,6 @@ public interface ManagedTask {
    * readily-available instance data to identify the task.
    */
   public static final String IDENTITY_NAME = "javax.enterprise.concurrent.IDENTITY_NAME";
-  
-  /**
-   * The description of the identifiable object translated for a given locale. 
-   * 
-   * @param locale the locale to use to generate the description. If null, the default locale will be used.
-   * @return the description of the identifiable object in the specified locale.
-   */
-  public String getIdentityDescription(java.util.Locale locale);
   
   /**
    * The {@link ManagedTaskListener} to receive notification of lifecycle
