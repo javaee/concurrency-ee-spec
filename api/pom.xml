@@ -74,6 +74,7 @@
     <scm>
         <url>http://java.net/projects/concurrency-ee-spec/sources/source-code-repository/show/trunk/api</url>
         <connection>scm:svn:https://svn.java.net/svn/concurrency-ee-spec~source-code-repository/trunk/api</connection>
+        <developerConnection>scm:svn:https://svn.java.net/svn/concurrency-ee-spec~source-code-repository/trunk/api</developerConnection>
     </scm>
 
     <developers>
