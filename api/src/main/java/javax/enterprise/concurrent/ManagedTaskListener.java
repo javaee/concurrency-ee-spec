@@ -124,9 +124,11 @@ public interface ManagedTaskListener {
    *  
    * @param future the <code>Future</code> instance that was created when the task was submitted. 
    * @param executor the executor used to run the associated Future.
+   * @param task the task that was submitted.
    */
   public void taskSubmitted(java.util.concurrent.Future<?> future,
-                            ManagedExecutorService executor);
+                            ManagedExecutorService executor,
+                            Object task);
   
   /**
    * Called when a task's Future has been cancelled anytime during the life of a task.
@@ -144,22 +146,27 @@ public interface ManagedTaskListener {
    * 
    * @param future the {@link Future} instance that was created when the task was submitted. 
    * @param executor the executor used to run the associated Future.
+   * @param task the task that was submitted.
    * @param exception the cause of the task abort.
    */
   public void taskAborted(java.util.concurrent.Future<?> future,
                           ManagedExecutorService executor,
+                          Object task,
                           java.lang.Throwable exception);
   
   /**
-   * Called when a submitted task has completed running, successful or otherwise after 
-   * submitted.
+   * Called when a submitted task has completed running, either successfully or
+   * failed due to any exception thrown from the task, task being cancelled,
+   * rejected, or aborted.
    *  
    * @param future the {@link Future} instance that was created when the task was submitted. 
    * @param executor the executor used to run the associated Future.
+   * @param task the task that was submitted.
    * @param exception if not null, the exception that caused the task to fail.
    */
   public void taskDone(java.util.concurrent.Future<?> future,
                        ManagedExecutorService executor,
+                       Object task,
                        java.lang.Throwable exception);
   
   /**
@@ -169,7 +176,9 @@ public interface ManagedTaskListener {
    *  
    * @param future the {@link Future} instance that was created when the task was submitted. 
    * @param executor the executor used to run the associated Future.
+   * @param task the task that was submitted.
    */
   public void taskStarting(java.util.concurrent.Future<?> future,
-                           ManagedExecutorService executor);
+                           ManagedExecutorService executor,
+                           Object task);
 }

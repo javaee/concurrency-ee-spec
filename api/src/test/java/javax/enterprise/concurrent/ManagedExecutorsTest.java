@@ -96,7 +96,7 @@ public class ManagedExecutorsTest {
     public void testManagedTask_Runnable_ManagedTask() {
         ManagedTaskListenerImpl TASK_LISTENER = new ManagedTaskListenerImpl();
         Map<String, String> EXEC_PROPERTIES = new HashMap<>();
-        EXEC_PROPERTIES.put(ManagedTask.CONTEXTUAL_CALLBACK_HINT, "true");
+        EXEC_PROPERTIES.put("custom", "true");
         EXEC_PROPERTIES.put(ManagedTask.LONGRUNNING_HINT, "false");
         final String TASK_DESCRIPTION = "task1 description";
         ManagedTaskRunnableImpl task = new ManagedTaskRunnableImpl(TASK_DESCRIPTION, EXEC_PROPERTIES, TASK_LISTENER);
@@ -112,7 +112,7 @@ public class ManagedExecutorsTest {
         assertTrue(taskListener == managedTask.getManagedTaskListener());
         assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.LONGRUNNING_HINT));
         assertEquals(TASK_NAME, managedTask.getExecutionProperties().get(ManagedTask.IDENTITY_NAME));
-        assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.CONTEXTUAL_CALLBACK_HINT));
+        assertEquals("true", managedTask.getExecutionProperties().get("custom"));
     }
 
     /**
@@ -124,14 +124,14 @@ public class ManagedExecutorsTest {
     public void testManagedTask_Runnable_ManagedTask_null_args() {
         ManagedTaskListenerImpl TASK_LISTENER = new ManagedTaskListenerImpl();
         Map<String, String> EXEC_PROPERTIES = new HashMap<>();
-        EXEC_PROPERTIES.put(ManagedTask.CONTEXTUAL_CALLBACK_HINT, "true");
+        EXEC_PROPERTIES.put("custom", "true");
         final String TASK_DESCRIPTION = "task1 description";
         ManagedTaskRunnableImpl task = new ManagedTaskRunnableImpl(TASK_DESCRIPTION, EXEC_PROPERTIES, TASK_LISTENER);
         
         Runnable wrapped = ManagedExecutors.managedTask(task, null, null);
         ManagedTask managedTask = (ManagedTask) wrapped;
         assertTrue(TASK_LISTENER == managedTask.getManagedTaskListener());
-        assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.CONTEXTUAL_CALLBACK_HINT));
+        assertEquals("true", managedTask.getExecutionProperties().get("custom"));
     }
 
     /**
@@ -182,7 +182,7 @@ public class ManagedExecutorsTest {
         final String RESULT = "result";
         ManagedTaskListenerImpl TASK_LISTENER = new ManagedTaskListenerImpl();
         Map EXEC_PROPERTIES = new HashMap<>();
-        EXEC_PROPERTIES.put(ManagedTask.CONTEXTUAL_CALLBACK_HINT, "true");
+        EXEC_PROPERTIES.put("custom", "true");
         EXEC_PROPERTIES.put(ManagedTask.LONGRUNNING_HINT, "false");
         final String TASK_DESCRIPTION = "task1 description";
         ManagedTaskCallableImpl<String> task = new ManagedTaskCallableImpl(RESULT, TASK_DESCRIPTION, EXEC_PROPERTIES, TASK_LISTENER);
@@ -198,7 +198,7 @@ public class ManagedExecutorsTest {
         assertTrue(taskListener == managedTask.getManagedTaskListener());
         assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.LONGRUNNING_HINT));
         assertEquals(TASK_NAME, managedTask.getExecutionProperties().get(ManagedTask.IDENTITY_NAME));
-        assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.CONTEXTUAL_CALLBACK_HINT));
+        assertEquals("true", managedTask.getExecutionProperties().get("custom"));
     }
 
     /**
@@ -211,14 +211,14 @@ public class ManagedExecutorsTest {
         final String RESULT = "result";
         ManagedTaskListenerImpl TASK_LISTENER = new ManagedTaskListenerImpl();
         Map EXEC_PROPERTIES = new HashMap<>();
-        EXEC_PROPERTIES.put(ManagedTask.CONTEXTUAL_CALLBACK_HINT, "true");
+        EXEC_PROPERTIES.put("custom", "true");
         final String TASK_DESCRIPTION = "task1 description";
         ManagedTaskCallableImpl<String> task = new ManagedTaskCallableImpl(RESULT, TASK_DESCRIPTION, EXEC_PROPERTIES, TASK_LISTENER);
         
         Callable wrapped = ManagedExecutors.managedTask(task, null, null);
         ManagedTask managedTask = (ManagedTask) wrapped;
         assertTrue(TASK_LISTENER == managedTask.getManagedTaskListener());
-        assertEquals("true", managedTask.getExecutionProperties().get(ManagedTask.CONTEXTUAL_CALLBACK_HINT));
+        assertEquals("true", managedTask.getExecutionProperties().get("custom"));
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -331,19 +331,19 @@ public class ManagedExecutorsTest {
     static class ManagedTaskListenerImpl implements ManagedTaskListener {
 
         @Override
-        public void taskSubmitted(Future<?> future, ManagedExecutorService executor) {
+        public void taskSubmitted(Future<?> future, ManagedExecutorService executor, Object task) {
         }
 
         @Override
-        public void taskAborted(Future<?> future, ManagedExecutorService executor, Throwable exception) {
+        public void taskAborted(Future<?> future, ManagedExecutorService executor, Object task, Throwable exception) {
         }
 
         @Override
-        public void taskDone(Future<?> future, ManagedExecutorService executor, Throwable exception) {
+        public void taskDone(Future<?> future, ManagedExecutorService executor, Object task, Throwable exception) {
         }
 
         @Override
-        public void taskStarting(Future<?> future, ManagedExecutorService executor) {
+        public void taskStarting(Future<?> future, ManagedExecutorService executor, Object task) {
         }
         
     }

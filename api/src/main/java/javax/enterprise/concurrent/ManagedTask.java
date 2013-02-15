@@ -68,13 +68,33 @@ public interface ManagedTask {
   /**
    * Execution property to be returned in {@link #getExecutionProperties()} or
    * {@link ContextService#createContextualProxy(java.lang.Object, java.util.Map, java.lang.Class) ContextService.createContextualProxy()}
-   * to provide a hint about whether the methods in {@link ManagedTaskListener} and 
-   * {@link Trigger} associated with this task needs to be called under the same
-   * context as the task. Any values other than "true" means the methods will be 
-   * run with unspecified context.
+   * to inform the Java&trade; EE Product Provider under which transaction 
+   * should the task or proxy method of contextual proxy object be executed
+   * in.
+   * 
+   * Valid values are:
+   * <p>
+   * "SUSPEND" (the default if unspecified) - Any transaction that is currently
+   * active on the thread will be suspended and a 
+   * {@link javax.transaction.UserTransaction} (accessible in the local 
+   * JNDI namespace as "java:comp/UserTransaction") will be available. The 
+   * original transaction, if any was active on the thread, will be resumed
+   * when the task or contextual proxy object method returns.
+   * 
+   * <p>
+   * "USE_TRANSACTION_OF_EXECUTION_THREAD" - The contextual proxy object method
+   * will run within the transaction (if any) of the execution thread. A
+   * {@link javax.transaction.UserTransaction} will only be available if it is 
+   * also available in the execution thread (for example, when the proxy method
+   * is invoked from a Servlet or Bean Managed Transaction EJB). When there is
+   * no existing transaction on the execution thread, such as when running tasks
+   * that are submitted to a {@link ManagedExecutorService} or a
+   * {@link ManagedScheduledExecutorService}, a 
+   * {@link javax.transaction.UserTransaction} will be available.
+   * <P>
    */
-  public static final String CONTEXTUAL_CALLBACK_HINT = "javax.enterprise.concurrent.CONTEXTUAL_CALLBACK_HINT";
-  
+  public final String TRANSACTION = "javax.enterprise.concurrent.TRANSACTION";
+
   /**
    * Execution property to be returned in {@link #getExecutionProperties()} or
    * {@link ContextService#createContextualProxy(java.lang.Object, java.util.Map, java.lang.Class) ContextService.createContextualProxy()}

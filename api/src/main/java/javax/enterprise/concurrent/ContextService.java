@@ -81,29 +81,6 @@ import java.util.Map;
 public interface ContextService {
 
   /**
-   * An execution property that disables the normal transaction
-   * suspension and {@code UserTransaction} access from the proxied methods. This is
-   * useful only when the proxy method is invoked to run on the same thread. 
-   * This property will be ignored when the proxy object is submitted for
-   * execution asynchronously on a different thread, such as if it is specified
-   * in the execution properties of a {@link ManagedTask} which is submitted to
-   * an {@link java.util.concurrent.Executor} or any of its subclasses.
-   * <p>
-   * If "false" (the default if unspecified), any transaction that is
-   * currently active on the thread will be suspended and a UserTransaction
-   * (accessible in the local JNDI namespace as "java:comp/UserTransaction")
-   * will be available. When the proxied method returns the original
-   * transaction is restored.
-   * <p>
-   * If "true", the proxied method will run within the transaction (if any) of
-   * the current thread. A UserTransaction will only be available if it is 
-   * also available in the container thread (for example, a Servlet or Bean 
-   * Managed Transaction EJB).
-   * <P>
-   */
-  public final String USE_PARENT_TRANSACTION = "javax.enterprise.concurrent.USE_PARENT_TRANSACTION";
-  
-  /**
    * Creates a new contextual object proxy for the input object instance.
    * <p>
    * Each method invocation will have the context of the application component
@@ -147,8 +124,9 @@ public interface ContextService {
    * @param instance the instance of the object to proxy.
    * @param intf the interface that the proxy should implement.
    * @return a proxy for the input object that implements the specified interface.
-   * @throws java.lang.IllegalArgumentException - if the instance does not implement the specified 
-   * interface or there is not an accessible default constructor.
+   * @throws java.lang.IllegalArgumentException - if the {@code intf} argument 
+   * is null, the instance does not implement the specified 
+   * interface, or there is not an accessible default constructor.
    *         
    */
   public <T> T createContextualProxy(T instance, Class<T> intf);
@@ -195,8 +173,9 @@ public interface ContextService {
    * @param interfaces the interfaces that the proxy should implement.
    * @return a proxy for the input object that implements all of the specified
    *         interfaces.
-   * @throws java.lang.IllegalArgumentException - if the instance does not implement
-   * all the specified interfaces or there is not an accessible default constructor.
+   * @throws java.lang.IllegalArgumentException - if the {@code interfaces}
+   * argument is null, the instance does not implement
+   * all the specified interfaces, or there is not an accessible default constructor.
    *         
    */
   public Object createContextualProxy(Object instance, Class<?>... interfaces);
@@ -288,9 +267,9 @@ public interface ContextService {
    * @param intf the interface that the proxy should implement.
    * @return a proxy for the input object that implements the specified interface.
    *
-   * @throws java.lang.IllegalArgumentException - if the instance does not 
-   *         implement the specified interface or there is not an accessible 
-   *         default constructor.
+   * @throws java.lang.IllegalArgumentException - if the {@code intf} argument
+   * null, the instance does not implement the specified interface, or there is 
+   * not an accessible default constructor.
    */
   public <T> T createContextualProxy(T instance,
                                      Map<String, String> executionProperties,
@@ -310,9 +289,9 @@ public interface ContextService {
    * @return a proxy for the input object that implements all of the specified
    *         interfaces.
    *
-   * @throws java.lang.IllegalArgumentException - if the instance does not 
-   *         implement all the specified interfaces or there is not an
-   *         accessible default constructor.
+   * @throws java.lang.IllegalArgumentException - if the {@code interfaces}
+   * argument is null, the instance does not implement all the specified 
+   * interfaces, or there is not an accessible default constructor.
    */
    public Object createContextualProxy(Object instance,
                                        Map<String, String> executionProperties,

@@ -47,17 +47,14 @@ package javax.enterprise.concurrent;
  * application developer (or may be supplied to the application 
  * externally) and is registered with a task when it is submitted 
  * to a {@link ManagedScheduledExecutorService} using any of the 
- * schedule methods. Each method will run with unspecified context unless 
- * {@link ManagedTask#CONTEXTUAL_CALLBACK_HINT} is specified to control whether
- * or not these callback methods run under the same context in 
- * which the task runs.
+ * schedule methods. Each method will run with unspecified context. 
+ * The methods can be made contextual through creating contextual
+ * proxy objects using {@link ContextService}.
  * <p>
  * Each Trigger instance will be invoked within the same process 
  * in which it was registered.
  * <p>
- * Trigger should be Serializable if it is to be used on a distributed
- * {@code ManagedScheduledExecutorService}.
- * <p>
+ * 
  * Example:
  * <pre>
  * &#47;**
