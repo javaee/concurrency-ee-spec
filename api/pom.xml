@@ -52,8 +52,8 @@
 
     <groupId>javax.enterprise.concurrent</groupId>
     <artifactId>javax.enterprise.concurrent-api</artifactId>
-    <version>1.0-b03-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <version>${apijar.maven.version}</version>
+    <packaging>bundle</packaging>
     <name>javax.enterprise.concurrent-api</name>
     <description>JSR 236:Concurrency Utilities for Java EE</description>
     <url>http://concurrency-ee-spec.java.net</url>
@@ -87,6 +87,22 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <api_package>javax.enterprise.concurrent</api_package>
+        <spec_version>0.0</spec_version>
+        <new_spec_version>1.0</new_spec_version>
+        <build_number>03</build_number>
+        <spec_impl_version>1.0</spec_impl_version>
+
+        <apijar.extensionName>${api_package}</apijar.extensionName>
+        <apijar.bundle.symbolicName>${api_package}-api</apijar.bundle.symbolicName>
+        <!-- Non Final properties API and impl jar-->
+        <apijar.maven.version>${new_spec_version}-b${build_number}</apijar.maven.version>
+        <apijar.bundle.specversion>${spec_version}.99.b${build_number}</apijar.bundle.specversion>
+        <apijar.bundle.version>${spec_version}.99.b${build_number}</apijar.bundle.version>
+        <apijar.spec.version>${spec_version}.99.${build_number}</apijar.spec.version>
+        <apijar.spec.impl.version>${new_spec_version}-b${build_number}</apijar.spec.impl.version>
+        <packages.export>javax.enterprise.concurrent.*; version=${apijar.bundle.version}</packages.export>
     </properties>
 
     <organization>
@@ -157,14 +173,33 @@
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>2.6</version>
                 </plugin>
-                <plugin>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>maven-bundle-plugin</artifactId>
-                    <version>2.3.4</version>
-                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
+            <!--
+              This plugin is reponsible for packaging artifacts
+              as OSGi bundles.  Please refer to
+              http://felix.apache.org/site/apache-felix-maven-bundle-plugin-bnd.html
+              for more information about how to use this plugin.
+            -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-Version>${apijar.bundle.version}</Bundle-Version>
+                        <specversion>${apijar.bundle.specversion}</specversion>
+                        <Bundle-SymbolicName>${apijar.bundle.symbolicName}</Bundle-SymbolicName>
+                        <Export-Package>${packages.export}</Export-Package>
+                        <Specification-Version>${apijar.spec.version}</Specification-Version>
+                        <Implementation-Version>${apijar.spec.impl.version}</Implementation-Version>
+                        <Extension-Name>${apijar.extensionName}</Extension-Name>
+                    </instructions>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -279,27 +314,6 @@
                             <goal>checkstyle</goal>
                         </goals>
                         <phase>validate</phase>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <configuration>
-                    <!-- By default, we don't export anything.
-                    -->
-                    <Export-Package />
-                    <instructions>
-                        <_include>-${basedir}/osgi.bundle</_include>
-                    </instructions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
