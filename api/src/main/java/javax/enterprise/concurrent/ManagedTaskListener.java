@@ -46,9 +46,7 @@ import java.util.concurrent.Future;
  * It can be registered with a {@link ManagedExecutorService} using the
  * <code>submit</code> methods and will be invoked when the state of the 
  * {@link Future} changes.
- * Each listener method will run with unspecified context unless 
- * {@link ManagedTask#CONTEXTUAL_CALLBACK_HINT} is specified to control whether
- * or not these callback methods run under the same context in which the task runs.
+ * Each listener method will run with unspecified context.
  * All listeners run without an explicit transaction 
  * (they do not enlist in the application component's transaction).  If a transaction is required, use a
  * {@link javax.transaction.UserTransaction} instance.

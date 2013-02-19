@@ -93,8 +93,21 @@ public interface ManagedTask {
    * {@link javax.transaction.UserTransaction} will be available.
    * <P>
    */
-  public final String TRANSACTION = "javax.enterprise.concurrent.TRANSACTION";
+  public static final String TRANSACTION = "javax.enterprise.concurrent.TRANSACTION";
 
+  /**
+   * Constant for the "SUSPEND" value of the TRANSACTION execution property.
+   * See {@link ManagedTask#TRANSACTION}.
+   */
+  public static final String SUSPEND = "SUSPEND";
+  
+  /**
+   * Constant for the "USE_TRANSACTION_OF_EXECUTION_THREAD" value of the 
+   * TRANSACTION execution property.
+   * See {@link ManagedTask#TRANSACTION}.
+   */
+  public static final String USE_TRANSACTION_OF_EXECUTION_THREAD = "USE_TRANSACTION_OF_EXECUTION_THREAD";
+  
   /**
    * Execution property to be returned in {@link #getExecutionProperties()} or
    * {@link ContextService#createContextualProxy(java.lang.Object, java.util.Map, java.lang.Class) ContextService.createContextualProxy()}

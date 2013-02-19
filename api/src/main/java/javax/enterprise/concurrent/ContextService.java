@@ -216,7 +216,7 @@ public interface ContextService {
    *        // Specify that contextual object should run inside the current 
    *        // transaction.  If we have a failure, we don't want to consume
    *        // the message.
-   *        execProps.put(ContextService.USE_PARENT_TRANSACTION, &quot;true&quot;);
+   *        execProps.put(ManagedTask.TRANSACTION, &quot;USE_TRANSACTION_OF_EXECUTION_THREAD&quot;);
    *
    *        ProcessMessage msgProcessor =
    *            ctxSvc.createContextualProxy(new MessageProcessor(), execProps,
