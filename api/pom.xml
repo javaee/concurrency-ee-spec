@@ -52,7 +52,7 @@
 
     <groupId>javax.enterprise.concurrent</groupId>
     <artifactId>javax.enterprise.concurrent-api</artifactId>
-    <version>${apijar.maven.version}</version>
+    <version>${apijar.maven.version}-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>javax.enterprise.concurrent-api</name>
     <description>JSR 236:Concurrency Utilities for Java EE</description>
