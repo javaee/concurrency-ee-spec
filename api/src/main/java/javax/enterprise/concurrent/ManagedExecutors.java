@@ -274,7 +274,7 @@ public class ManagedExecutors {
             if (base == null && override == null) {
                 return null;
             }
-            Map<String, String> props = new HashMap<>();
+            Map<String, String> props = new HashMap<String, String>();
             if (base != null) {
                 props.putAll(base);
             }

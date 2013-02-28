@@ -72,7 +72,7 @@ public class ManagedExecutorsTest {
     public void testManagedTask_Runnable_executionProperties_ManagedTaskListener() {
         RunnableImpl task = new RunnableImpl();
         ManagedTaskListenerImpl taskListener = new ManagedTaskListenerImpl();
-        Map<String, String> executionProperties = new HashMap<>();
+        Map<String, String> executionProperties = new HashMap<String, String>();
         final String TASK_NAME = "task1";
         executionProperties.put(ManagedTask.IDENTITY_NAME, TASK_NAME);
         executionProperties.put(ManagedTask.LONGRUNNING_HINT, "true");
@@ -95,14 +95,14 @@ public class ManagedExecutorsTest {
     @Test
     public void testManagedTask_Runnable_ManagedTask() {
         ManagedTaskListenerImpl TASK_LISTENER = new ManagedTaskListenerImpl();
-        Map<String, String> EXEC_PROPERTIES = new HashMap<>();
+        Map<String, String> EXEC_PROPERTIES = new HashMap<String, String>();
         EXEC_PROPERTIES.put("custom", "true");
         EXEC_PROPERTIES.put(ManagedTask.LONGRUNNING_HINT, "false");
         final String TASK_DESCRIPTION = "task1 description";
         ManagedTaskRunnableImpl task = new ManagedTaskRunnableImpl(TASK_DESCRIPTION, EXEC_PROPERTIES, TASK_LISTENER);
 
         ManagedTaskListenerImpl taskListener = new ManagedTaskListenerImpl();
-        Map<String, String> executionProperties = new HashMap<>();
+        Map<String, String> executionProperties = new HashMap<String, String>();
         final String TASK_NAME = "task1";
         executionProperties.put(ManagedTask.IDENTITY_NAME, TASK_NAME);
         executionProperties.put(ManagedTask.LONGRUNNING_HINT, "true");
@@ -123,7 +123,7 @@ public class ManagedExecutorsTest {
     @Test
     public void testManagedTask_Runnable_ManagedTask_null_args() {
         ManagedTaskListenerImpl TASK_LISTENER = new ManagedTaskListenerImpl();
-        Map<String, String> EXEC_PROPERTIES = new HashMap<>();
+        Map<String, String> EXEC_PROPERTIES = new HashMap<String, String>();
         EXEC_PROPERTIES.put("custom", "true");
         final String TASK_DESCRIPTION = "task1 description";
         ManagedTaskRunnableImpl task = new ManagedTaskRunnableImpl(TASK_DESCRIPTION, EXEC_PROPERTIES, TASK_LISTENER);
@@ -140,7 +140,7 @@ public class ManagedExecutorsTest {
     @Test
     public void testManagedTask_Callable_ManagedTaskListener() throws Exception {
         final String RESULT = "result";
-        CallableImpl<String> task = new CallableImpl<>(RESULT);
+        CallableImpl<String> task = new CallableImpl<String>(RESULT);
         ManagedTaskListenerImpl taskListener = new ManagedTaskListenerImpl();
         
         Callable<String> wrapped = ManagedExecutors.managedTask(task, taskListener);
@@ -156,9 +156,9 @@ public class ManagedExecutorsTest {
     @Test
     public void testManagedTask_Callable_executionProperties_ManagedTaskListener() throws Exception {
         final String RESULT = "result";
-        CallableImpl<String> task = new CallableImpl<>(RESULT);
+        CallableImpl<String> task = new CallableImpl<String>(RESULT);
         ManagedTaskListenerImpl taskListener = new ManagedTaskListenerImpl();
-        Map<String, String> executionProperties = new HashMap<>();
+        Map<String, String> executionProperties = new HashMap<String, String>();
         final String TASK_NAME = "task1";
         executionProperties.put(ManagedTask.IDENTITY_NAME, TASK_NAME);
         executionProperties.put(ManagedTask.LONGRUNNING_HINT, "true");
@@ -181,14 +181,14 @@ public class ManagedExecutorsTest {
     public void testManagedTask_Callable_ManagedTask() {
         final String RESULT = "result";
         ManagedTaskListenerImpl TASK_LISTENER = new ManagedTaskListenerImpl();
-        Map EXEC_PROPERTIES = new HashMap<>();
+        Map<String, String> EXEC_PROPERTIES = new HashMap<String, String>();
         EXEC_PROPERTIES.put("custom", "true");
         EXEC_PROPERTIES.put(ManagedTask.LONGRUNNING_HINT, "false");
         final String TASK_DESCRIPTION = "task1 description";
         ManagedTaskCallableImpl<String> task = new ManagedTaskCallableImpl(RESULT, TASK_DESCRIPTION, EXEC_PROPERTIES, TASK_LISTENER);
 
         ManagedTaskListenerImpl taskListener = new ManagedTaskListenerImpl();
-        Map<String, String> executionProperties = new HashMap<>();
+        Map<String, String> executionProperties = new HashMap<String, String>();
         final String TASK_NAME = "task1";
         executionProperties.put(ManagedTask.IDENTITY_NAME, TASK_NAME);
         executionProperties.put(ManagedTask.LONGRUNNING_HINT, "true");
@@ -210,7 +210,7 @@ public class ManagedExecutorsTest {
     public void testManagedTask_Callable_ManagedTask_null_args() {
         final String RESULT = "result";
         ManagedTaskListenerImpl TASK_LISTENER = new ManagedTaskListenerImpl();
-        Map EXEC_PROPERTIES = new HashMap<>();
+        Map<String, String> EXEC_PROPERTIES = new HashMap<String, String>();
         EXEC_PROPERTIES.put("custom", "true");
         final String TASK_DESCRIPTION = "task1 description";
         ManagedTaskCallableImpl<String> task = new ManagedTaskCallableImpl(RESULT, TASK_DESCRIPTION, EXEC_PROPERTIES, TASK_LISTENER);
