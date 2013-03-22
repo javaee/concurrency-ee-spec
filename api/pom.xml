@@ -52,7 +52,7 @@
 
     <groupId>javax.enterprise.concurrent</groupId>
     <artifactId>javax.enterprise.concurrent-api</artifactId>
-    <version>1.0-b06</version>
+    <version>1.0-b07-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <name>javax.enterprise.concurrent-api</name>
     <description>JSR 236:Concurrency Utilities for Java EE</description>
@@ -72,9 +72,9 @@
     </licenses>
 
     <scm>
-        <url>http://java.net/projects/concurrency-ee-spec/sources/source-code-repository/show/tags/javax.enterprise.concurrent-api-1.0-b06</url>
-        <connection>scm:svn:https://svn.java.net/svn/concurrency-ee-spec~source-code-repository/tags/javax.enterprise.concurrent-api-1.0-b06</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/concurrency-ee-spec~source-code-repository/tags/javax.enterprise.concurrent-api-1.0-b06</developerConnection>
+        <url>http://java.net/projects/concurrency-ee-spec/sources/source-code-repository/show/trunk/api</url>
+        <connection>scm:svn:https://svn.java.net/svn/concurrency-ee-spec~source-code-repository/trunk/api</connection>
+        <developerConnection>scm:svn:https://svn.java.net/svn/concurrency-ee-spec~source-code-repository/trunk/api</developerConnection>
     </scm>
 
     <developers>
