@@ -87,12 +87,11 @@ public interface ContextService {
    * instance that created the contextual object proxy.
    * <p>
    * The contextual object is useful when developing or using Java&trade; SE
-   * threading mechanisms propagating events to other component instances or
-   * communicating with component instances on different Java processes.
+   * threading mechanisms propagating events to other component instances.
    * <p>
    * If the application component that created the proxy is not started or
-   * deployed, all methods on reflected interfaces will throw a
-   * {@code java.lang.IllegalStateException}.
+   * deployed, all methods on reflected interfaces may throw an
+   * {@link java.lang.IllegalStateException}.
    *  <p>
    * For example, to execute a Runnable which is contextualized with the 
    * creator's context using a Java&trade; SE ExecutorService:
@@ -125,8 +124,8 @@ public interface ContextService {
    * @param intf the interface that the proxy should implement.
    * @return a proxy for the input object that implements the specified interface.
    * @throws java.lang.IllegalArgumentException - if the {@code intf} argument 
-   * is null, the instance does not implement the specified 
-   * interface, or there is not an accessible default constructor.
+   * is null or the instance does not implement the specified 
+   * interface.
    *         
    */
   public <T> T createContextualProxy(T instance, Class<T> intf);
@@ -174,8 +173,8 @@ public interface ContextService {
    * @return a proxy for the input object that implements all of the specified
    *         interfaces.
    * @throws java.lang.IllegalArgumentException - if the {@code interfaces}
-   * argument is null, the instance does not implement
-   * all the specified interfaces, or there is not an accessible default constructor.
+   * argument is null or the instance does not implement
+   * all the specified interfaces.
    *         
    */
   public Object createContextualProxy(Object instance, Class<?>... interfaces);
@@ -184,12 +183,11 @@ public interface ContextService {
    * Creates a new contextual object proxy for the input object instance.
    * <p>
    * The contextual object is useful when developing or using Java&trade; SE
-   * threading mechanisms propagating events to other component instances or
-   * communicating with component instances on different Java processes.
+   * threading mechanisms propagating events to other component instances.
    * <p>
    * If the application component that created the proxy is not started or
-   * deployed, all methods on reflected interfaces will throw a
-   * {@code java.lang.IllegalStateException}.
+   * deployed, all methods on reflected interfaces may throw an
+   * {@link java.lang.IllegalStateException}.
    * <p>
    * This method accepts a {@code Map} object which allows the
    * contextual object creator to define what contexts or behaviors to capture
@@ -268,8 +266,7 @@ public interface ContextService {
    * @return a proxy for the input object that implements the specified interface.
    *
    * @throws java.lang.IllegalArgumentException - if the {@code intf} argument
-   * null, the instance does not implement the specified interface, or there is 
-   * not an accessible default constructor.
+   * null or the instance does not implement the specified interface.
    */
   public <T> T createContextualProxy(T instance,
                                      Map<String, String> executionProperties,
@@ -290,8 +287,8 @@ public interface ContextService {
    *         interfaces.
    *
    * @throws java.lang.IllegalArgumentException - if the {@code interfaces}
-   * argument is null, the instance does not implement all the specified 
-   * interfaces, or there is not an accessible default constructor.
+   * argument is null or the instance does not implement all the specified 
+   * interfaces.
    */
    public Object createContextualProxy(Object instance,
                                        Map<String, String> executionProperties,
