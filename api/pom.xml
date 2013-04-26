@@ -52,7 +52,7 @@
 
     <groupId>javax.enterprise.concurrent</groupId>
     <artifactId>javax.enterprise.concurrent-api</artifactId>
-    <version>1.0-b07-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>bundle</packaging>
     <name>javax.enterprise.concurrent-api</name>
     <description>JSR 236:Concurrency Utilities for Java EE</description>
@@ -97,11 +97,11 @@
         <apijar.extensionName>${api_package}</apijar.extensionName>
         <apijar.bundle.symbolicName>${api_package}-api</apijar.bundle.symbolicName>
         <!-- Non Final properties API and impl jar-->
-        <apijar.maven.version>${new_spec_version}-b${build_number}</apijar.maven.version>
-        <apijar.bundle.specversion>${spec_version}.99.b${build_number}</apijar.bundle.specversion>
-        <apijar.bundle.version>${spec_version}.99.b${build_number}</apijar.bundle.version>
-        <apijar.spec.version>${spec_version}.99.${build_number}</apijar.spec.version>
-        <apijar.spec.impl.version>${new_spec_version}-b${build_number}</apijar.spec.impl.version>
+        <apijar.maven.version>${new_spec_version}</apijar.maven.version>
+        <apijar.bundle.specversion>${new_spec_version}</apijar.bundle.specversion>
+        <apijar.bundle.version>${new_spec_version}</apijar.bundle.version>
+        <apijar.spec.version>${new_spec_version}</apijar.spec.version>
+        <apijar.spec.impl.version>${new_spec_version}</apijar.spec.impl.version>
         <packages.export>javax.enterprise.concurrent.*; version=${apijar.bundle.version}</packages.export>
     </properties>
 
