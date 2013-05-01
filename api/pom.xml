@@ -52,7 +52,7 @@
 
     <groupId>javax.enterprise.concurrent</groupId>
     <artifactId>javax.enterprise.concurrent-api</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>javax.enterprise.concurrent-api</name>
     <description>JSR 236:Concurrency Utilities for Java EE</description>
     <url>http://concurrency-ee-spec.java.net</url>
@@ -71,9 +71,9 @@
     </licenses>
 
     <scm>
-        <url>http://java.net/projects/concurrency-ee-spec/sources/source-code-repository/show/trunk/api</url>
-        <connection>scm:svn:https://svn.java.net/svn/concurrency-ee-spec~source-code-repository/trunk/api</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/concurrency-ee-spec~source-code-repository/trunk/api</developerConnection>
+        <url>http://java.net/projects/concurrency-ee-spec/sources/source-code-repository/show/tags/javax.enterprise.concurrent-api-1.0</url>
+        <connection>scm:svn:https://svn.java.net/svn/concurrency-ee-spec~source-code-repository/tags/javax.enterprise.concurrent-api-1.0</connection>
+        <developerConnection>scm:svn:https://svn.java.net/svn/concurrency-ee-spec~source-code-repository/tags/javax.enterprise.concurrent-api-1.0</developerConnection>
     </scm>
 
     <developers>
@@ -92,8 +92,8 @@
         <last.spec_version>0.0</last.spec_version>
         <next.spec_version>1.0</next.spec_version>
         <spec.version>${next.spec_version}</spec.version>
-        <new.spec.version></new.spec.version>
-        <build_number></build_number>
+        <new.spec.version />
+        <build_number />
         <packages.export>javax.enterprise.concurrent.*; version=${spec.bundle.version}</packages.export>
     </properties>
 
