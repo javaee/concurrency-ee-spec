@@ -52,8 +52,7 @@
 
     <groupId>javax.enterprise.concurrent</groupId>
     <artifactId>javax.enterprise.concurrent-api</artifactId>
-    <version>1.1-SNAPSHOT</version>
-    <packaging>bundle</packaging>
+    <version>1.0-SNAPSHOT</version>
     <name>javax.enterprise.concurrent-api</name>
     <description>JSR 236:Concurrency Utilities for Java EE</description>
     <url>http://concurrency-ee-spec.java.net</url>
@@ -89,20 +88,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <api_package>javax.enterprise.concurrent</api_package>
-        <spec_version>0.0</spec_version>
-        <new_spec_version>1.0</new_spec_version>
-        <build_number>03</build_number>
-        <spec_impl_version>1.0</spec_impl_version>
-
-        <apijar.extensionName>${api_package}</apijar.extensionName>
-        <apijar.bundle.symbolicName>${api_package}-api</apijar.bundle.symbolicName>
-        <!-- Non Final properties API and impl jar-->
-        <apijar.maven.version>${new_spec_version}</apijar.maven.version>
-        <apijar.bundle.specversion>${new_spec_version}</apijar.bundle.specversion>
-        <apijar.bundle.version>${new_spec_version}</apijar.bundle.version>
-        <apijar.spec.version>${new_spec_version}</apijar.spec.version>
-        <apijar.spec.impl.version>${new_spec_version}</apijar.spec.impl.version>
-        <packages.export>javax.enterprise.concurrent.*; version=${apijar.bundle.version}</packages.export>
+        <non.final>false</non.final>
+        <last.spec_version>0.0</last.spec_version>
+        <next.spec_version>1.0</next.spec_version>
+        <spec.version>${next.spec_version}</spec.version>
+        <new.spec.version></new.spec.version>
+        <build_number></build_number>
+        <packages.export>javax.enterprise.concurrent.*; version=${spec.bundle.version}</packages.export>
     </properties>
 
     <organization>
@@ -176,6 +168,30 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.glassfish.build</groupId>
+                <artifactId>spec-version-maven-plugin</artifactId>
+                <version>1.2</version>
+                <configuration>
+                    <spec>
+                        <nonFinal>${non.final}</nonFinal>
+                        <jarType>api</jarType>
+                        <specVersion>${spec.version}</specVersion>
+                        <newSpecVersion>${new.spec.version}</newSpecVersion>
+                        <specBuild>${build_number}</specBuild>
+                        <specImplVersion>${project.version}</specImplVersion>
+                        <apiPackage>${api_package}</apiPackage>
+                    </spec>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>set-spec-properties</goal>
+                            <goal>check-module</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>           
             <!--
               This plugin is reponsible for packaging artifacts
               as OSGi bundles.  Please refer to
@@ -189,17 +205,25 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Bundle-Version>${apijar.bundle.version}</Bundle-Version>
-                        <specversion>${apijar.bundle.specversion}</specversion>
-                        <Bundle-SymbolicName>${apijar.bundle.symbolicName}</Bundle-SymbolicName>
+                        <Bundle-Version>${spec.bundle.version}</Bundle-Version>
+                        <Bundle-SymbolicName>${spec.bundle.symbolic-name}</Bundle-SymbolicName>
+                        <Extension-Name>${spec.extension.name}</Extension-Name>
+                        <Implementation-Version>${spec.implementation.version}</Implementation-Version>
+                        <Specification-Version>${spec.specification.version}</Specification-Version>                         
+                        <specversion>${spec.specification.version}</specversion>
                         <Export-Package>${packages.export}</Export-Package>
-                        <Specification-Version>${apijar.spec.version}</Specification-Version>
-                        <Implementation-Version>${apijar.spec.impl.version}</Implementation-Version>
-                        <Extension-Name>${apijar.extensionName}</Extension-Name>
                     </instructions>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -244,7 +268,7 @@
     <a href="http://www.oracle.com">Oracle</a>
     and/or its affiliates. All Rights Reserved.
     Use is subject to
-    <a href="doc-files/speclicense.html" target="_top">license terms</a>.
+    <a href="{@docRoot}/doc-files/speclicense.html" target="_top">license terms</a>.
 ]]>
                     </bottom>
                     <!--javaApiLinks>
@@ -283,7 +307,7 @@
                         <id>attach-sources</id>
                         <phase>validate</phase>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -328,5 +352,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>
