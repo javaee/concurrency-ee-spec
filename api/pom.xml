@@ -72,9 +72,9 @@
     </licenses>
 
     <scm>
-        <url>scm:git:https://github.com/javaee/concurrency-ee-spec.git</url>
-        <connection>scm:git:git@github.com:javaee/concurrency-ee-spec.git</connection>
-        <developerConnection>https://github.com/javaee/concurrency-ee-spec</developerConnection>
+        <connection>scm:git:https://github.com/javaee/concurrency-ee-spec.git</connection>
+        <developerConnection>scm:git:git@github.com:javaee/concurrency-ee-spec.git</developerConnection>
+        <url>https://github.com/javaee/concurrency-ee-spec</url>
     </scm>
     <developers>
         <developer>
